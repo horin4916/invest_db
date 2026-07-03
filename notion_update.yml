@@ -1,0 +1,33 @@
+name: Notion Portfolio Auto Update
+
+on:
+  workflow_dispatch: # 필요할 때 언제든 깃허브에서 수동 실행 가능
+  schedule:
+    # 평일(월-금) 한국 시간 오후 4시 30분 실행 (UTC 오전 7시 30분)
+    - cron: '30 7 * * 1-5'
+
+jobs:
+  update-notion:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Seoul
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests yfinance
+
+      - name: Run Notion Update Script
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: |
+          python update_notion_wallet.py
