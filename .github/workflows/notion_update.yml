@@ -3,8 +3,8 @@ name: Notion Portfolio Auto Update
 on:
   workflow_dispatch: # 필요할 때 언제든 깃허브에서 수동 실행 가능
   schedule:
-    # 평일(월-금) 한국 시간 오후 4시 30분 실행 (UTC 오전 7시 30분)
-    - cron: '30 7 * * 1-5'
+    # 평일(월-금) 한국 시간 오후 4시 42분 실행 (UTC 오전 7시 42분)으로 수정
+    - cron: '42 7 * * 1-5'
 
 jobs:
   update-notion:
